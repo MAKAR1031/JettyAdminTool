@@ -286,4 +286,7 @@ public class JettyAdminToolDAO {
     }
 
     // </editor-fold>   
+    //<editor-fold desc="Users and Roles CRUD">
+    
+    //</editor-fold>
 }
