@@ -1,0 +1,121 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    margin: 0 auto;
+    background-color: #2e66cc;
+    text-align: right;
+    padding: 10px;
+    box-shadow: 3px 3px 10px #787878;
+}
+
+.text_logo {
+    display: inline-block;
+    width: 88%;
+    color: white;
+    font-size: 40pt;
+    text-align: left;
+    text-shadow: 1px 1px 5px #646464;
+}
+
+.login_form {
+    display: inline-block;
+}
+
+.content {
+    width: 80%;
+    background-color: #e4e4e4;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 3px 3px 10px #787878;
+    padding-bottom: 15px;
+}
+
+.title {
+    background-color: #c7daec;
+    border-bottom: 1px black dotted;
+    font-size: 35pt;
+}
+
+.data_table {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+    border-spacing: 200px;
+    font-size: 18pt;
+}
+
+.data_table tr {
+    border-bottom: 2px solid black;
+}
+
+.data_table td, th {
+    padding: 5px;
+}
+
+.data_table tr:nth-child(odd) {
+    background-color: white;
+}
+
+.data_table tr:nth-child(even) {
+    background-color: #cdcdcd;
+}
+
+.data_table tr:first-child {
+    background-color: black;
+    color: white;
+}
+
+.button_block {
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+    width: 70%;
+}
+
+.button_block input[type="submit"] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    width: 80%;
+}
+
+.fields {
+    text-align: right;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fields input {
+    margin-bottom: 10px;
+}
+
+.fields input[type="submit"] {
+    width: 100%;
+}
+
+input[type="submit"] {
+    border-radius: 0;
+    border: 1px solid #dedede;
+    background-color: white;
+    padding: 5px;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px #c4c4c4;
+}
+
+input[type="submit"]:hover {
+    box-shadow: none;
+    background-color: #b7b6b4;
+}
+
+input[type="text"] {
+    border: 1px solid #dedede;
+    box-shadow: 1px 1px 5px #c4c4c4;
+    padding: 5px;
+}
