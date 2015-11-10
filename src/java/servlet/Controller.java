@@ -22,59 +22,59 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getParameter("login") != null) {
+        if (isAction(request, "login")) {
             request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
         }
 
-        if (request.getParameter("add_comp") != null) {
+        if (isAction(request, "add_comp")) {
             request.getRequestDispatcher("/jsp/add_comp.jsp").forward(request, response);
         }
 
-        if (request.getParameter("to_comp") != null) {
+        if (isAction(request, "to_comp")) {
             request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
         }
 
-        if (request.getParameter("show_serv") != null) {
+        if (isAction(request, "show_serv")) {
             int id = Integer.parseInt(request.getParameter("id_comp"));
             request.getSession().setAttribute("idComputer", id);
             request.getRequestDispatcher("/jsp/servers.jsp").forward(request, response);
         }
 
-        if (request.getParameter("rem_comp") != null) {
+        if (isAction(request, "rem_comp")) {
             int id = Integer.parseInt(request.getParameter("id_comp"));
             request.getSession().setAttribute("idRemovedComputer", id);
             request.getRequestDispatcher("/jsp/rem_comp.jsp").forward(request, response);
         }
 
-        if (request.getParameter("add_serv") != null) {
+        if (isAction(request, "add_serv")) {
             request.getRequestDispatcher("/jsp/add_serv.jsp").forward(request, response);
         }
 
-        if (request.getParameter("to_serv") != null) {
+        if (isAction(request, "to_serv")) {
             request.getRequestDispatcher("/jsp/servers.jsp").forward(request, response);
         }
 
-        if (request.getParameter("show_apps") != null) {
+        if (isAction(request, "show_apps")) {
             int id = Integer.parseInt(request.getParameter("id_serv"));
             request.getSession().setAttribute("idServer", id);
             request.getRequestDispatcher("/jsp/applications.jsp").forward(request, response);
         }
 
-        if (request.getParameter("rem_serv") != null) {
+        if (isAction(request, "rem_serv")) {
             int id = Integer.parseInt(request.getParameter("id_serv"));
             request.getSession().setAttribute("idRemovedServer", id);
             request.getRequestDispatcher("/jsp/rem_serv.jsp").forward(request, response);
         }
 
-        if (request.getParameter("add_app") != null) {
+        if (isAction(request, "add_app")) {
             request.getRequestDispatcher("/jsp/add_app.jsp").forward(request, response);
         }
 
-        if (request.getParameter("to_app") != null) {
+        if (isAction(request, "to_app")) {
             request.getRequestDispatcher("/jsp/applications.jsp").forward(request, response);
         }
 
-        if (request.getParameter("rem_app") != null) {
+        if (isAction(request, "rem_app")) {
             int id = Integer.parseInt(request.getParameter("id_app"));
             request.getSession().setAttribute("idRemovedApplication", id);
             request.getRequestDispatcher("/jsp/rem_app.jsp").forward(request, response);
@@ -85,7 +85,7 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getParameter("add_comp_post") != null) {
+        if (isAction(request, "add_comp_post")) {
             String ip = request.getParameter("ip");
             String hostName = request.getParameter("host_name");
             Computer computer = new Computer();
@@ -95,13 +95,13 @@ public class Controller extends HttpServlet {
             request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
         }
 
-        if (request.getParameter("rem_com_post") != null) {
+        if (isAction(request, "rem_com_post")) {
             int id = (int) request.getSession().getAttribute("idRemovedComputer");
             dao.removeComputer(id);
             request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
         }
 
-        if (request.getParameter("add_serv_post") != null) {
+        if (isAction(request, "add_serv_post")) {
             int idComputer = (int) request.getSession().getAttribute("idComputer");
             String directory = request.getParameter("directory");
             int port = Integer.parseInt(request.getParameter("port"));
@@ -114,13 +114,13 @@ public class Controller extends HttpServlet {
             request.getRequestDispatcher("/jsp/servers.jsp").forward(request, response);
         }
 
-        if (request.getParameter("rem_serv_post") != null) {
+        if (isAction(request, "rem_serv_post")) {
             int id = (int) request.getSession().getAttribute("idRemovedServer");
             dao.removeServer(id);
             request.getRequestDispatcher("/jsp/servers.jsp").forward(request, response);
         }
 
-        if (request.getParameter("add_app_post") != null) {
+        if (isAction(request, "add_app_post")) {
             try {
                 int idServer = (int) request.getSession().getAttribute("idServer");
                 String war = request.getParameter("war");
@@ -141,10 +141,14 @@ public class Controller extends HttpServlet {
             }
         }
 
-        if (request.getParameter("rem_app_post") != null) {
+        if (isAction(request, "rem_app_post")) {
             int id = (int) request.getSession().getAttribute("idRemovedApplication");
             dao.removeApplication(id);
             request.getRequestDispatcher("/jsp/applications.jsp").forward(request, response);
         }
+    }
+    
+    private boolean isAction(HttpServletRequest request, String actionName) {
+        return request.getParameter(actionName) != null;
     }
 }
