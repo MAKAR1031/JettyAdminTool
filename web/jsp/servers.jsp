@@ -34,13 +34,15 @@
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">
                                 <input type="hidden" name="id_serv" value="${row.id}"/>
-                                <input type="submit" name="show_apps" value="Приложения"/>
+                                <input type="hidden" name="action" value="show_apps"/>
+                                <input type="submit" value="Приложения"/>
                             </form>
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">
                                 <input type="hidden" name="id_serv" value="${row.id}"/>
-                                <input type="submit" name="rem_serv" value="Удалить"/>
+                                <input type="hidden" name="action" value="rem_serv"/>
+                                <input type="submit" value="Удалить"/>
                             </form>
                         </td>
                     </tr>
@@ -49,11 +51,18 @@
             </table>
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
+                    <input type="hidden" name="action" value="rem_serv"/>
                     <input type="submit" value="Добавить сервер" name="add_serv"/>
-                    <input type="submit" value="Автоматический поиск серверов" name="auto_serv_search"
+                </form>
+                <form method="GET" action="<c:url value="/Controller"/>">
+                    <input type="hidden" name="action" value="auto_serv_search"/>
+                    <input type="submit" value="Автоматический поиск серверов"
                            onclick="alert('В разработке...');
                                    return false" />
-                    <input type="submit" value="Вернуться к компьютерам" name="to_comp"/>
+                </form>
+                <form method="GET" action="<c:url value="/Controller"/>">
+                    <input type="hidden" name="action" value="to_comp"/>
+                    <input type="submit" value="Вернуться к компьютерам"/>
                 </form>
             </div>
         </div>

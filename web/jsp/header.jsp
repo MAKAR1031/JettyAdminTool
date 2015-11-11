@@ -12,7 +12,8 @@
                 Jetty Admin Tool
             </div>
             <form method="GET" class="login_form" action="<c:url value="/Controller"/>">
-                <input type="submit" name="login" value="Войти"/>
+                <input type="hidden" name="action" value="login" />
+                <input type="submit" value="Войти"/>
             </form>
         </div>
     </body>

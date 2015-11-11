@@ -27,15 +27,16 @@
                     <label for="comment">Комментарий</label>
                     <input type="text" name="comment"/><br/>
 
-                    <input type="submit" name="add_app_post" value="Добавить"/>
+                    <input type="hidden" name="acton" value="add_app_post"/>
+                    <input type="submit" value="Добавить"/>
                 </div>
             </form>
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
-                    <input type="submit" name="to_app" value="К списку приложений"/>
+                    <input type="hidden" name="acton" value="to_app"/>
+                    <input type="submit" value="К списку приложений"/>
                 </form>
             </div>
-
         </div>
     </body>
 </html>

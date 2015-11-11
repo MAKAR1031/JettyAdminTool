@@ -12,10 +12,12 @@
             <h1 class="title">Вы действительно хотите удалить этот сервер?</h1>
             <div class="button_block">
                 <form method="POST" action="<c:url value='/Controller'/>">
-                    <input type="submit" name="rem_serv_post" value="Удалить"/>
+                    <input type="submit" name="action" value="rem_serv_post"/>
+                    <input type="submit" value="Удалить"/>
                 </form>
                 <form method="GET" action="<c:url value='/Controller'/>">
-                    <input type="submit" name="to_serv" value="Вернуться к списку серверов"/>
+                    <input type="submit" name="action" value="to_serv"/>
+                    <input type="submit" value="Вернуться к списку серверов"/>
                 </form>
             </div>
         </div>

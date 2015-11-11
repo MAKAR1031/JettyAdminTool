@@ -12,10 +12,12 @@
             <h1 class="title">Вы действительно хотите удалить это приложение?</h1>
             <div class="button_block">
                 <form method="POST" action="<c:url value='/Controller'/>">
-                    <input type="submit" name="rem_app_post" value="Удалить"/>
+                    <input type="hidden" name="action" value="rem_app_post"/>
+                    <input type="submit" value="Удалить"/>
                 </form>
                 <form method="GET" action="<c:url value='/Controller'/>">
-                    <input type="submit" name="to_app" value="К списку приложений"/>
+                    <input type="hidden" name="action" value="to_app"/>
+                    <input type="submit" value="К списку приложений"/>
                 </form>
             </div>
         </div>

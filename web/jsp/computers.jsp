@@ -23,14 +23,16 @@
                         <td>${row.ip}</td>
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">
-                                <input type="hidden" name="id_comp" value="${row.id}" />
-                                <input type="submit" name="show_serv" value="Сервера" />
+                                <input type="hidden" name="id_comp" value="${row.id}"/>
+                                <input type="hidden" name="action" value="show_serv"/>
+                                <input type="submit" value="Сервера" />
                             </form>
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">
-                                <input type="hidden" name="id_comp" value="${row.id}" />
-                                <input type="submit" name="rem_comp" value="Удалить" />
+                                <input type="hidden" name="id_comp" value="${row.id}"/>
+                                <input type="hidden" name="action" value="rem_comp"/>
+                                <input type="submit" value="Удалить" />
                             </form>
                         </td>
                     </tr>
@@ -38,10 +40,14 @@
             </table>
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
-                    <input type="submit" name="add_comp" value="Добавить компьютер"/>
-                    <input type="submit" name="auto_comp_search" value="Автоматический поиск" 
+                    <input type="hidden" name="action" value="add_comp"/>
+                    <input type="submit" value="Добавить компьютер"/>
+                </form>
+                <form method="GET" action="<c:url value="/Controller"/>">
+                    <input type="hidden" name="action" value="auto_comp_search"/>
+                    <input type="submit" value="Автоматический поиск" 
                            onclick="alert('В разработке...');
-                               return false;"/>
+                                   return false;"/>
                 </form>
             </div>
         </div>

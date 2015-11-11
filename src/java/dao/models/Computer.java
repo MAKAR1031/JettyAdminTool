@@ -6,9 +6,6 @@ public class Computer {
     private String hostName;
     private String ip;
 
-    public Computer() {
-    }
-
     public int getId() {
         return id;
     }
