@@ -2,7 +2,7 @@ package dao.models;
 
 import java.sql.Date;
 
-public class Application {
+public class Application implements Validatable {
 
     private int id;
     private String war;
@@ -57,5 +57,13 @@ public class Application {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public boolean isValid() {
+        return isValidString(war)
+                && isValidString(contextRoot)
+                && isValidString(deployerName)
+                && deployDate != null;
     }
 }

@@ -1,6 +1,6 @@
 package dao.models;
 
-public class Server {
+public class Server implements Validatable{
     private int id;
     private String directory;
     private int port;
@@ -36,5 +36,10 @@ public class Server {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public boolean isValid() {
+        return directory != null && port > 0 && port <= 65536;
     }
 }

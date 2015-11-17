@@ -1,6 +1,9 @@
 package dao.models;
 
-public class Computer {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Computer implements Validatable {
 
     private int id;
     private String hostName;
@@ -28,5 +31,13 @@ public class Computer {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    @Override
+    public boolean isValid() {
+        String patternPart = "(2[0-5]{2}|(1|0)?\\d{1,2}|)";
+        String pattern = String.join("\\.", patternPart, patternPart, patternPart, patternPart);
+        Matcher matcher = Pattern.compile("^" + pattern + "$").matcher(ip);
+        return hostName != null && ip != null && matcher.matches();
     }
 }
