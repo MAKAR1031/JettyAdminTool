@@ -1,4 +1,4 @@
-package ssh;
+package search;
 
 import dao.models.Computer;
 import dao.models.Server;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 //На сервере, который будет размещать данное приложение должна стоять ОС семейства Linux
 //И установленные приложения nmap и nbtscan
 
-public class SSHSearcher {
+public class ComputerSearcher {
 
     public List<Computer> searchComputers() {
         ArrayList<String> lines = runCommand("arp -a");
@@ -57,7 +57,7 @@ public class SSHSearcher {
             }
             return result;
         }   catch (IOException ex) {
-            Logger.getLogger(SSHSearcher.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComputerSearcher.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -66,7 +66,7 @@ public class SSHSearcher {
         try {
             Process process = Runtime.getRuntime().exec(command);
         } catch (IOException ex) {
-            Logger.getLogger(SSHSearcher.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComputerSearcher.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

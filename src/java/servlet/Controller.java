@@ -21,6 +21,9 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (request.getParameter("action") == null) {
+            request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
+        }
         switch (request.getParameter("action")) {
             case "login":
                 request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
@@ -78,6 +81,9 @@ public class Controller extends HttpServlet {
                 id = Integer.parseInt(request.getParameter("id_app"));
                 request.getSession().setAttribute("idRemovedApplication", id);
                 request.getRequestDispatcher("/jsp/rem_app.jsp").forward(request, response);
+                break;
+            default:
+                request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
                 break;
         }
     }
