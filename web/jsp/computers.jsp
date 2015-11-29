@@ -45,9 +45,7 @@
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="auto_comp_search"/>
-                    <input type="submit" value="Автоматический поиск" 
-                           onclick="alert('В разработке...');
-                                   return false;"/>
+                    <input type="submit" value="Автоматический поиск"/>
                 </form>
             </div>
         </div>

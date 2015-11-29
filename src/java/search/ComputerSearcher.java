@@ -1,12 +1,10 @@
 package search;
 
 import dao.models.Computer;
-import dao.models.Server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -17,7 +15,8 @@ import java.util.regex.Pattern;
 
 public class ComputerSearcher {
 
-    public List<Computer> searchComputers() {
+    public ArrayList<Computer> searchComputers() {
+//        scanNetwork();
         ArrayList<String> lines = runCommand("arp -a");
         ArrayList<Computer> computers = new ArrayList<>();
         String ipPart = "(2[0-5]{2}|(1|0)?\\d{1,2})";
@@ -41,10 +40,6 @@ public class ComputerSearcher {
         return computers;
     }
 
-    public List<Server> searchServers() {
-        return null;
-    }
-
     private ArrayList<String> runCommand(String command) {
         try {
             Process process = Runtime.getRuntime().exec(command);
@@ -62,15 +57,7 @@ public class ComputerSearcher {
         return null;
     }
 
-    private void runCommandWithoutOutput(String command) {
-        try {
-            Process process = Runtime.getRuntime().exec(command);
-        } catch (IOException ex) {
-            Logger.getLogger(ComputerSearcher.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     private void scanNetwork() {
-        runCommandWithoutOutput("nmap -sn 192.168.1.0/24");
+        runCommand("nmap -sn 192.168.1.0/24");
     }
 }

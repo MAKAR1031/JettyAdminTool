@@ -8,11 +8,21 @@
     </head>
     <body>
         <jsp:include page="/jsp/header.jsp"/>
-        <h2>${pageContext.errorData.throwable.message}</h2>
-        <p>
-            <c:forEach items="${pageContext.errorData.throwable.stackTrace}" var="row">
-                ${row}
-            </c:forEach>
-        </p>
+        <div class="content">
+            <h2 class="title">Произошла ошибка!</h2>
+            <c:choose>
+                <c:when test="${pageContext.errorData.throwable != null}">
+                    <h2>${pageContext.errorData.throwable.message}</h2>
+                    <p>
+                        <c:forEach items="${pageContext.errorData.throwable.stackTrace}" var="row">
+                            ${row}
+                        </c:forEach>
+                    </p>
+                </c:when>
+                <c:otherwise>
+                    <c:out value="${requestScope.errorMessage}"/>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </body>
 </html>

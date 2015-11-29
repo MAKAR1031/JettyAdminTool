@@ -1,10 +1,12 @@
 package servlet;
 
+import beans.ComputerBean;
 import dao.JettyAdminToolDAO;
 import dao.models.Application;
 import dao.models.Computer;
 import dao.models.Server;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import search.ComputerSearcher;
 
 public class Controller extends HttpServlet {
 
@@ -28,60 +31,68 @@ public class Controller extends HttpServlet {
             case "login":
                 request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
                 break;
-                
+
             case "add_comp":
                 request.getRequestDispatcher("/jsp/add_comp.jsp").forward(request, response);
                 break;
-                
+
             case "to_comp":
                 request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
                 break;
-                
+
             case "show_serv":
                 int id = Integer.parseInt(request.getParameter("id_comp"));
                 request.getSession().setAttribute("idComputer", id);
                 request.getRequestDispatcher("/jsp/servers.jsp").forward(request, response);
                 break;
-                
+
+            case "auto_comp_search":
+                ComputerSearcher searcher = new ComputerSearcher();
+                ComputerBean computerBean = new ComputerBean(searcher.searchComputers());
+                request.setAttribute("searchedComputers", computerBean);
+                request.getRequestDispatcher("/jsp/search_computers.jsp").forward(request, response);
+                break;
+
             case "rem_comp":
                 id = Integer.parseInt(request.getParameter("id_comp"));
                 request.getSession().setAttribute("idRemovedComputer", id);
                 request.getRequestDispatcher("/jsp/rem_comp.jsp").forward(request, response);
                 break;
-                
+
             case "add_serv":
                 request.getRequestDispatcher("/jsp/add_serv.jsp").forward(request, response);
                 break;
-                
+
             case "to_serv":
                 request.getRequestDispatcher("/jsp/servers.jsp").forward(request, response);
                 break;
-                
+
             case "show_apps":
                 id = Integer.parseInt(request.getParameter("id_serv"));
                 request.getSession().setAttribute("idServer", id);
                 request.getRequestDispatcher("/jsp/applications.jsp").forward(request, response);
                 break;
-                
+
             case "rem_serv":
                 id = Integer.parseInt(request.getParameter("id_serv"));
                 request.getSession().setAttribute("idRemovedServer", id);
                 request.getRequestDispatcher("/jsp/rem_serv.jsp").forward(request, response);
                 break;
-                
+
             case "add_app":
                 request.getRequestDispatcher("/jsp/add_app.jsp").forward(request, response);
                 break;
-                
+
             case "to_app":
                 request.getRequestDispatcher("/jsp/applications.jsp").forward(request, response);
                 break;
-                
+
             case "rem_app":
                 id = Integer.parseInt(request.getParameter("id_app"));
                 request.getSession().setAttribute("idRemovedApplication", id);
                 request.getRequestDispatcher("/jsp/rem_app.jsp").forward(request, response);
                 break;
+
             default:
                 request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
                 break;
@@ -99,10 +110,19 @@ public class Controller extends HttpServlet {
                 Computer computer = new Computer();
                 computer.setIp(ip);
                 computer.setHostName(hostName);
-                dao.addComputer(computer);
-                request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
+                if (computer.isValid() && InetAddress.getByName(computer.getIp()).isReachable(1000)) {
+                    if (dao.addComputer(computer) != -1) {
+                        request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
+                    }
+                    request.setAttribute("errorMessage", "Произошла ошибка при добавлении компьютера в базу данных");
+                    request.getRequestDispatcher("/jsp/error_page.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("errorMessage", "Вы ввели неверные данные");
+                    request.getRequestDispatcher("/jsp/error_page.jsp").forward(request, response);
+                }
+
                 break;
-                
+
             case "rem_com_post":
                 int id = (int) request.getSession().getAttribute("idRemovedComputer");
                 dao.removeComputer(id);
@@ -153,6 +173,9 @@ public class Controller extends HttpServlet {
                 id = (int) request.getSession().getAttribute("idRemovedApplication");
                 dao.removeApplication(id);
                 request.getRequestDispatcher("/jsp/applications.jsp").forward(request, response);
+                break;
+            default:
+                request.getRequestDispatcher("/jsp/computers.jsp").forward(request, response);
                 break;
         }
     }

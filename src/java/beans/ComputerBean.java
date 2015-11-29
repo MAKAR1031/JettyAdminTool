@@ -11,6 +11,10 @@ public class ComputerBean {
         JettyAdminToolDAO dao = new JettyAdminToolDAO();
         computers = dao.getAllComputers();
     }
+
+    public ComputerBean(ArrayList<Computer> computers) {
+        this.computers = computers;
+    }
     
     public ArrayList<Computer> getComputers() {
         return computers;

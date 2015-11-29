@@ -51,8 +51,8 @@
             </table>
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
-                    <input type="hidden" name="action" value="rem_serv"/>
-                    <input type="submit" value="Добавить сервер" name="add_serv"/>
+                    <input type="hidden" name="action" value="add_serv"/>
+                    <input type="submit" value="Добавить сервер"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="auto_serv_search"/>
