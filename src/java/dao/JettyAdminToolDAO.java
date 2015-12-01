@@ -59,10 +59,10 @@ public class JettyAdminToolDAO {
     public int addComputer(Computer computer) {
         try {
             connect();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO computers (ip, host) VALUES (?,?)",
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO computers (ip, name) VALUES (?,?)",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, computer.getIp());
-            statement.setString(2, computer.getHostName());
+            statement.setString(2, computer.getName());
             statement.execute();
             ResultSet set = statement.getGeneratedKeys();
             if (set.next()) {
@@ -78,14 +78,14 @@ public class JettyAdminToolDAO {
     public Computer getComputer(int idComputer) {
         try {
             connect();
-            PreparedStatement statement = connection.prepareStatement("SELECT ip, host FROM computers WHERE id_computer=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT ip, name FROM computers WHERE id_computer=?");
             statement.setInt(1, idComputer);
             ResultSet set = statement.executeQuery();
             if (set.next()) {
                 Computer computer = new Computer();
                 computer.setId(idComputer);
                 computer.setIp(set.getString(1));
-                computer.setHostName(set.getString(2));
+                computer.setName(set.getString(2));
                 return computer;
             }
         } catch (Exception e) {
@@ -98,14 +98,14 @@ public class JettyAdminToolDAO {
     public ArrayList<Computer> getAllComputers() {
         try {
             connect();
-            PreparedStatement statement = connection.prepareStatement("SELECT id_computer, ip, host FROM computers");
+            PreparedStatement statement = connection.prepareStatement("SELECT id_computer, ip, name FROM computers");
             ResultSet set = statement.executeQuery();
             ArrayList<Computer> computers = new ArrayList<>();
             while (set.next()) {
                 Computer computer = new Computer();
                 computer.setId(set.getInt(1));
                 computer.setIp(set.getString(2));
-                computer.setHostName(set.getString(3));
+                computer.setName(set.getString(3));
                 computers.add(computer);
             }
             return computers;
@@ -120,9 +120,9 @@ public class JettyAdminToolDAO {
     public boolean editComputer(int id, Computer computer) {
         try {
             connect();
-            PreparedStatement statement = connection.prepareStatement("UPDATE computers SET(ip, host) = (?,?) WHERE id_computer=?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE computers SET(ip, name) = (?,?) WHERE id_computer=?");
             statement.setString(1, computer.getIp());
-            statement.setString(2, computer.getHostName());
+            statement.setString(2, computer.getName());
             statement.setInt(3, id);
             statement.execute();
             return true;

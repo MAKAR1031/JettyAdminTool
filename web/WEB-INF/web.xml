@@ -24,7 +24,7 @@
     </resource-ref>
     <welcome-file-list>
         <welcome-file>
-            /jsp/computers.jsp
+            /jsp/comp/computers.jsp
         </welcome-file>
     </welcome-file-list>
 </web-app>

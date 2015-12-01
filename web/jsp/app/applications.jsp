@@ -11,7 +11,7 @@
         <jsp:useBean id="applicationBean" scope="session" class="beans.ApplicationBean"/>
         <jsp:setProperty name="applicationBean" property="idServer" value="${sessionScope.idServer}"/>
         <div class="content">
-            <h1 class="title">Приложения: ${sessionScope.idServer}</h1>
+            <h1 class="title">Приложения: ${sessionScope.serverDir}</h1>
             <table class="data_table">
                 <tr>
                     <th>War</th>
@@ -24,19 +24,19 @@
                 <c:forEach items="${applicationBean.applications}" var="row">
                     <tr>
                         <td>
-                            ${row.war}
+                            <c:out value="${row.war}"/>
                         </td>
                         <td>
-                            ${row.contextRoot}
+                            <c:out value="${row.contextRoot}"/>
                         </td>
                         <td>
-                            ${row.deployerName}
+                            <c:out value="${row.deployerName}"/>
                         </td>
                         <td>
-                            ${row.deployDate}
+                            <c:out value="${row.deployDate}"/>
                         </td>
                         <td>
-                            ${row.comment}
+                            <c:out value="${row.comment}"/>
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">

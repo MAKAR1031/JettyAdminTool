@@ -16,7 +16,7 @@ public class ModelsValidationTests {
     @Test 
     public void computerTest() {
         Computer computer = new Computer();
-        computer.setHostName("localhost");
+        computer.setName("localhost");
         computer.setIp("127.0.0.1");
         assertTrue(computer.isValid());
     }

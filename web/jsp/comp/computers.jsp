@@ -19,8 +19,12 @@
                 </tr>
                 <c:forEach items="${computerBean.computers}" var="row">
                     <tr>
-                        <td>${row.hostName}</td>
-                        <td>${row.ip}</td>
+                        <td>
+                            <c:out value="${row.name}"/>
+                        </td>
+                        <td>
+                            <c:out value="${row.ip}"/>
+                        </td>
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">
                                 <input type="hidden" name="id_comp" value="${row.id}"/>
@@ -44,7 +48,7 @@
                     <input type="submit" value="Добавить компьютер"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
-                    <input type="hidden" name="action" value="auto_comp_search"/>
+                    <input type="hidden" name="action" value="comp_search"/>
                     <input type="submit" value="Автоматический поиск"/>
                 </form>
             </div>

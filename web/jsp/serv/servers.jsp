@@ -11,7 +11,7 @@
         <jsp:useBean id="serverBean" scope="session" class="beans.ServerBean"/>
         <jsp:setProperty name="serverBean" property="idComputer" value="${sessionScope.idComputer}"/>
         <div class="content">
-            <h1 class="title">Сервера: ${sessionScope.idComputer}</h1>
+            <h1 class="title">Сервера: ${sessionScope.ipComputer}</h1>
             <table class="data_table">
                 <tr>
                     <th>Директория</th>
@@ -23,13 +23,13 @@
                     <c:forEach items="${serverBean.servers}" var="row">
                     <tr>
                         <td>
-                            ${row.directory}
+                            <c:out value="${row.directory}"/>
                         </td>
                         <td>
-                            ${row.port}
+                            <c:out value="${row.port}"/>
                         </td>
                         <th>
-                            ${row.comment}
+                            <c:out value="${row.comment}"/>
                         </th>
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">
@@ -55,10 +55,8 @@
                     <input type="submit" value="Добавить сервер"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
-                    <input type="hidden" name="action" value="auto_serv_search"/>
-                    <input type="submit" value="Автоматический поиск серверов"
-                           onclick="alert('В разработке...');
-                                   return false" />
+                    <input type="hidden" name="action" value="serv_search"/>
+                    <input type="submit" value="Автоматический поиск серверов"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="to_comp"/>

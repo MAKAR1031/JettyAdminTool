@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 public class ServerSearcher extends SSHExecutor {
 
+    public ServerSearcher() {
+        super(true);
+    }
+    
     public ServerSearcher(boolean isServerContext) {
         super(isServerContext);
     }
