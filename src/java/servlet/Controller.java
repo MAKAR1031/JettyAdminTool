@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -50,16 +51,19 @@ public class Controller extends HttpServlet {
                 request.getRequestDispatcher("/jsp/serv/servers.jsp").forward(request, response);
                 break;
 
-            case "comp_search":
+            case "search_comp":
                 ComputerSearcher searcher = new ComputerSearcher();
                 ArrayList<Computer> searchedComputers = searcher.searchComputers();
                 ArrayList<Computer> currentComputers = dao.getAllComputers();
-                searchedComputers.stream().forEach(computer -> {
-                    if (!currentComputers.contains(computer)) {
-                        dao.addComputer(computer);
+                Iterator<Computer> iterator =  searchedComputers.iterator();
+                while (iterator.hasNext()) {
+                    Computer computer = iterator.next();
+                    if (currentComputers.contains(computer)) {
+                        iterator.remove();
                     }
-                });
-                request.getRequestDispatcher("/jsp/comp/computers.jsp").forward(request, response);
+                }
+                request.setAttribute("searchedComputers", searchedComputers);
+                request.getRequestDispatcher("/jsp/comp/searched_comp.jsp").forward(request, response);
                 break;
 
             case "rem_comp":
@@ -83,7 +87,7 @@ public class Controller extends HttpServlet {
                 request.getRequestDispatcher("/jsp/app/applications.jsp").forward(request, response);
                 break;
 
-            case "serv_search":
+            case "search_serv":
                 request.getRequestDispatcher("/jsp/serv/connect_to_comp.jsp").forward(request, response);
                 break;
 
@@ -136,8 +140,19 @@ public class Controller extends HttpServlet {
                 }
 
                 break;
-
-            case "rem_com_post":
+            case "search_comp_post": 
+                int total = Integer.parseInt(request.getParameter("total"));
+                for (int i = 0; i < total; i++) {
+                    if (request.getParameter("select_"+i) != null) {
+                        computer = new Computer();
+                        computer.setIp(request.getParameter("ip_"+i));
+                        computer.setName(request.getParameter("name_"+i));
+                        dao.addComputer(computer);
+                    }
+                }
+                request.getRequestDispatcher("/jsp/comp/computers.jsp").forward(request, response);
+                break;
+            case "rem_comp_post":
                 int id = (int) request.getSession().getAttribute("idRemovedComputer");
                 dao.removeComputer(id);
                 request.getRequestDispatcher("/jsp/comp/computers.jsp").forward(request, response);
@@ -156,7 +171,7 @@ public class Controller extends HttpServlet {
                 request.getRequestDispatcher("/jsp/serv/servers.jsp").forward(request, response);
                 break;
 
-            case "serv_search_post":
+            case "search_serv_post":
                 ServerSearcher serverSearcher = new ServerSearcher();
                 String userName = request.getParameter("user_name");
                 String password = request.getParameter("password");

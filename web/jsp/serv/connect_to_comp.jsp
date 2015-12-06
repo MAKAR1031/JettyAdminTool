@@ -18,13 +18,13 @@
                     <label for="">Пароль</label>
                     <input type="password" id="password" name="password"/><br/>
 
-                    <input type="hidden" name="action" value="serv_search_post"/>
+                    <input type="hidden" name="action" value="search_serv_post"/>
                     <input type="submit" value="Подключение"/>
                 </div>
             </form>
             <div class="button_block">
                 <form method="GET" action="<c:url value='/Controller'/>">
-                    <input type="submit" name="action" value="to_serv"/>
+                    <input type="hidden" name="action" value="to_serv"/>
                     <input type="submit" value="Вернуться к списку серверов"/>
                 </form>
             </div>

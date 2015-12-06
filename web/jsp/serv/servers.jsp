@@ -55,7 +55,7 @@
                     <input type="submit" value="Добавить сервер"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
-                    <input type="hidden" name="action" value="serv_search"/>
+                    <input type="hidden" name="action" value="search_serv"/>
                     <input type="submit" value="Автоматический поиск серверов"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">

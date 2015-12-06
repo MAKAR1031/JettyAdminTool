@@ -12,7 +12,7 @@
             <h1 class="title">Вы действительно хотите удалить компьютер?</h1>
             <div class="button_block">
                 <form method="POST" action="<c:url value="/Controller"/>">
-                    <input type="hidden" name="action" value="rem_com_post"/>
+                    <input type="hidden" name="action" value="rem_comp_post"/>
                     <input type="submit" value="Удалить"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">

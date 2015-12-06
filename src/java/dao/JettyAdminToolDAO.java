@@ -3,6 +3,7 @@ package dao;
 import dao.models.Application;
 import dao.models.Computer;
 import dao.models.Server;
+import dao.models.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -348,5 +349,53 @@ public class JettyAdminToolDAO {
 
     // </editor-fold>   
     //<editor-fold desc="Users and Roles CRUD">
+    public int addUser(User user, String password) {
+        int idRole = getRoleIdByName(user.getRole());
+        if (idRole != -1) {
+            try {
+                connect();
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO users "
+                    + "(username, password, email) "
+                    + "VALUES (?,md5(?),?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                statement.setString(1, user.getUserName());
+                statement.setString(2, password);
+                statement.setString(3, user.getEmail());
+                statement.execute();
+                ResultSet key = statement.getGeneratedKeys();
+                if (key.next()) {
+                    return key.getInt(1);
+                }
+            } catch (Exception e) {
+            } finally {
+                disconnect();
+            }
+        }
+        return -1;
+    }
+
+    public User getUser(int idUser) {
+        return null;
+    }
+
+    public boolean removeUser(int idUser) {
+        return false;
+    }
+
+    private int getRoleIdByName(String roleName) {
+        try {
+            connect();
+            PreparedStatement statement = connection.prepareCall("SELECT id_role FROM roles WHERE role_name=?");
+            statement.setString(1, roleName);
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                return set.getInt(1);
+            }
+        } catch (Exception e) {
+
+        } finally {
+            disconnect();
+        }
+        return -1;
+    }
     //</editor-fold>
 }

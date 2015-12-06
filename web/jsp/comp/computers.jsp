@@ -48,8 +48,12 @@
                     <input type="submit" value="Добавить компьютер"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
-                    <input type="hidden" name="action" value="comp_search"/>
-                    <input type="submit" value="Автоматический поиск"/>
+                    <input type="hidden" name="action" value="search_comp"/>
+                    <input type="submit" value="Автоматический поиск" 
+                           onclick="(function () {
+                               alert('Поиск может занять некоторое время, пожалуйста подождите\nДля продолжения нажмите Ок');
+                               return true;
+                           })()"/>
                 </form>
             </div>
         </div>
