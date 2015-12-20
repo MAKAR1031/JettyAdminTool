@@ -11,10 +11,20 @@
             <div class="text_logo">
                 Jetty Admin Tool
             </div>
-            <form method="GET" class="login_form" action="<c:url value="/Controller"/>">
-                <input type="hidden" name="action" value="login" />
-                <input type="submit" value="Войти"/>
-            </form>
+            <c:choose>
+                <c:when test="${sessionScope.user == null}">
+                    <form method="POST" class="login_form" action="<c:url value="/LoginController"/>">
+                        <input type="hidden" name="action" value="login" />
+                        <input class="button" type="submit" value="Войти"/>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <form method="POST" class="login_form" action="<c:url value="/LoginController"/>">
+                        <input type="hidden" name="action" value="logoff" />
+                        <input class="button" type="submit" value="Выйти"/>
+                    </form>
+                </c:otherwise>
+            </c:choose>
         </div>
     </body>
 </html>

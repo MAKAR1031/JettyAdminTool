@@ -22,13 +22,13 @@
                     <input type="text" name="comment" id="comment"/><br/>
 
                     <input type="hidden" name="action" value="add_serv_post"/>
-                    <input type="submit" value="Добавить"/>
+                    <input class="button" type="submit" value="Добавить"/>
                 </div>
             </form>            
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="to_serv"/>
-                    <input type="submit" value="К списку серверов"/>
+                    <input class="button" type="submit" value="К списку серверов"/>
                 </form>
             </div>
         </div>

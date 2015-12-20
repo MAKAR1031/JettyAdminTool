@@ -23,8 +23,8 @@ public class JettyAdminToolDAO {
         this(true);
     }
 
-    public JettyAdminToolDAO(boolean isTesting) {
-        this.isServerContext = isTesting;
+    public JettyAdminToolDAO(boolean isServerContext) {
+        this.isServerContext = isServerContext;
     }
 
     // <editor-fold desc="Служебные методы">
@@ -349,42 +349,53 @@ public class JettyAdminToolDAO {
 
     // </editor-fold>   
     //<editor-fold desc="Users and Roles CRUD">
-    public int addUser(User user, String password) {
-        int idRole = getRoleIdByName(user.getRole());
-        if (idRole != -1) {
-            try {
-                connect();
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO users "
-                    + "(username, password, email) "
-                    + "VALUES (?,md5(?),?)", PreparedStatement.RETURN_GENERATED_KEYS);
-                statement.setString(1, user.getUserName());
-                statement.setString(2, password);
-                statement.setString(3, user.getEmail());
-                statement.execute();
-                ResultSet key = statement.getGeneratedKeys();
-                if (key.next()) {
-                    return key.getInt(1);
-                }
-            } catch (Exception e) {
-            } finally {
-                disconnect();
-            }
+    public boolean userExist(String userName) {
+        try {
+            connect();
+            PreparedStatement statement = connection.prepareStatement("SELECT id_user "
+                    + "FROM users WHERE username=?");
+            statement.setString(1, userName);
+            ResultSet set = statement.executeQuery();
+            return set.next();
+        } catch (Exception ex) {
+            return false;
+        } finally {
+            disconnect();
         }
-        return -1;
     }
 
-    public User getUser(int idUser) {
+    public User getUser(String userName, String password) {
+        try {
+            connect();
+            PreparedStatement statement
+                    = connection.prepareStatement("SELECT id_user,email,role_name "
+                            + "FROM users "
+                            + "JOIN users_in_roles USING(id_user) "
+                            + "JOIN roles USING(id_role) "
+                            + "WHERE userName=? AND password=md5(?)");
+            statement.setString(1, userName);
+            statement.setString(2, password);
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                User user = new User();
+                user.setId(set.getInt(1));
+                user.setEmail(set.getString(2));
+                user.setRole(set.getString(3));
+                user.setUserName(userName);
+                return user;
+            }
+
+        } catch (Exception e) {
+        } finally {
+            disconnect();
+        }
         return null;
-    }
-
-    public boolean removeUser(int idUser) {
-        return false;
     }
 
     private int getRoleIdByName(String roleName) {
         try {
             connect();
-            PreparedStatement statement = connection.prepareCall("SELECT id_role FROM roles WHERE role_name=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT id_role FROM roles WHERE role_name=?");
             statement.setString(1, roleName);
             ResultSet set = statement.executeQuery();
             if (set.next()) {

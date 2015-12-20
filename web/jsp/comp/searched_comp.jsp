@@ -37,12 +37,14 @@
                 </table>
                 <input type="hidden" name="total" value="${i}"/>
                 <input type="hidden" name="action" value="search_comp_post"/>
-                <input type="submit" value="Добавить выбранные"/>
+                <div class="button_block">
+                    <input class="button" type="submit" value="Добавить выбранные"/>
+                </div>
             </form>
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="to_comp"/>
-                    <input type="submit" value="К списку компьютеров"/>
+                    <input class="button" type="submit" value="К списку компьютеров"/>
                 </form>
             </div>
         </div>

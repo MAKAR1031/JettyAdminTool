@@ -77,14 +77,6 @@ body {
     width: 70%;
 }
 
-.button_block input[type="submit"] {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 5px;
-    width: 80%;
-}
-
 .fields {
     text-align: right;
     display: inline-block;
@@ -100,7 +92,10 @@ body {
     width: 100%;
 }
 
-input[type="submit"] {
+.button {
+    display: block;
+    margin: 0 auto 5px auto;
+    width: 100%;
     border-radius: 0;
     border: 1px solid #dedede;
     background-color: white;
@@ -109,12 +104,12 @@ input[type="submit"] {
     box-shadow: 1px 1px 5px #c4c4c4;
 }
 
-input[type="submit"]:hover {
+.button:hover {
     box-shadow: none;
     background-color: #b7b6b4;
 }
 
-input[type="text"] {
+input[type="text"],input[type="password"] {
     border: 1px solid #dedede;
     box-shadow: 1px 1px 5px #c4c4c4;
     padding: 5px;

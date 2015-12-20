@@ -29,14 +29,14 @@
                             <form method="GET" action="<c:url value="/Controller"/>">
                                 <input type="hidden" name="id_comp" value="${row.id}"/>
                                 <input type="hidden" name="action" value="show_serv"/>
-                                <input type="submit" value="Сервера" />
+                                <input class="button" type="submit" value="Сервера" />
                             </form>
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">
                                 <input type="hidden" name="id_comp" value="${row.id}"/>
                                 <input type="hidden" name="action" value="rem_comp"/>
-                                <input type="submit" value="Удалить" />
+                                <input class="button" type="submit" value="Удалить" />
                             </form>
                         </td>
                     </tr>
@@ -45,11 +45,11 @@
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="add_comp"/>
-                    <input type="submit" value="Добавить компьютер"/>
+                    <input class="button" type="submit" value="Добавить компьютер"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="search_comp"/>
-                    <input type="submit" value="Автоматический поиск" 
+                    <input class="button" type="submit" value="Автоматический поиск" 
                            onclick="(function () {
                                alert('Поиск может занять некоторое время, пожалуйста подождите\nДля продолжения нажмите Ок');
                                return true;

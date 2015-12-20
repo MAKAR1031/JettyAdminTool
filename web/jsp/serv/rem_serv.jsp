@@ -13,11 +13,11 @@
             <div class="button_block">
                 <form method="POST" action="<c:url value='/Controller'/>">
                     <input type="hidden" name="action" value="rem_serv_post"/>
-                    <input type="submit" value="Удалить"/>
+                    <input class="button" type="submit" value="Удалить"/>
                 </form>
                 <form method="GET" action="<c:url value='/Controller'/>">
                     <input type="hidden" name="action" value="to_serv"/>
-                    <input type="submit" value="Вернуться к списку серверов"/>
+                    <input class="button" type="submit" value="Вернуться к списку серверов"/>
                 </form>
             </div>
         </div>

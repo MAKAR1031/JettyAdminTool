@@ -13,11 +13,11 @@
             <div class="button_block">
                 <form method="POST" action="<c:url value='/Controller'/>">
                     <input type="hidden" name="action" value="rem_app_post"/>
-                    <input type="submit" value="Удалить"/>
+                    <input class="button" type="submit" value="Удалить"/>
                 </form>
                 <form method="GET" action="<c:url value='/Controller'/>">
                     <input type="hidden" name="action" value="to_app"/>
-                    <input type="submit" value="К списку приложений"/>
+                    <input class="button" type="submit" value="К списку приложений"/>
                 </form>
             </div>
         </div>

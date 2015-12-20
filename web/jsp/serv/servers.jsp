@@ -35,14 +35,14 @@
                             <form method="GET" action="<c:url value="/Controller"/>">
                                 <input type="hidden" name="id_serv" value="${row.id}"/>
                                 <input type="hidden" name="action" value="show_apps"/>
-                                <input type="submit" value="Приложения"/>
+                                <input class="button" type="submit" value="Приложения"/>
                             </form>
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/Controller"/>">
                                 <input type="hidden" name="id_serv" value="${row.id}"/>
                                 <input type="hidden" name="action" value="rem_serv"/>
-                                <input type="submit" value="Удалить"/>
+                                <input class="button" type="submit" value="Удалить"/>
                             </form>
                         </td>
                     </tr>
@@ -52,15 +52,15 @@
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="add_serv"/>
-                    <input type="submit" value="Добавить сервер"/>
+                    <input class="button" type="submit" value="Добавить сервер"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="search_serv"/>
-                    <input type="submit" value="Автоматический поиск серверов"/>
+                    <input class="button" type="submit" value="Автоматический поиск серверов"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="to_comp"/>
-                    <input type="submit" value="Вернуться к компьютерам"/>
+                    <input class="button" type="submit" value="Вернуться к компьютерам"/>
                 </form>
             </div>
         </div>

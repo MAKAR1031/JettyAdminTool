@@ -5,6 +5,7 @@ import dao.JettyAdminToolDAO;
 import dao.models.Application;
 import dao.models.Computer;
 import dao.models.Server;
+import dao.models.User;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.sql.Date;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import search.ApplicationSearcher;
 import search.ComputerSearcher;
 import search.ServerSearcher;
+import util.Roles;
 
 public class Controller extends HttpServlet {
 
@@ -28,16 +30,22 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!userIsAuthorized(request)) {
+            request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+            return;
+        }
+        User user = (User) request.getSession().getAttribute("user");
         if (request.getParameter("action") == null) {
             request.getRequestDispatcher("/jsp/comp/computers.jsp").forward(request, response);
         }
         switch (request.getParameter("action")) {
-            case "login":
-                request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
-                break;
-
             case "add_comp":
-                request.getRequestDispatcher("/jsp/comp/add_comp.jsp").forward(request, response);
+                if (user.isInRole(Roles.ADMIN)) {
+                    request.getRequestDispatcher("/jsp/comp/add_comp.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("errorMessage", "Доступ запрещен");
+                    request.getRequestDispatcher("/jsp/error_page.jsp").forward(request, response);
+                }
                 break;
 
             case "to_comp":
@@ -55,7 +63,7 @@ public class Controller extends HttpServlet {
                 ComputerSearcher searcher = new ComputerSearcher();
                 ArrayList<Computer> searchedComputers = searcher.searchComputers();
                 ArrayList<Computer> currentComputers = dao.getAllComputers();
-                Iterator<Computer> iterator =  searchedComputers.iterator();
+                Iterator<Computer> iterator = searchedComputers.iterator();
                 while (iterator.hasNext()) {
                     Computer computer = iterator.next();
                     if (currentComputers.contains(computer)) {
@@ -120,7 +128,10 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        if (!userIsAuthorized(request)) {
+            request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+            return;
+        }
         switch (request.getParameter("action")) {
             case "add_comp_post":
                 String ip = request.getParameter("ip");
@@ -140,13 +151,13 @@ public class Controller extends HttpServlet {
                 }
 
                 break;
-            case "search_comp_post": 
+            case "search_comp_post":
                 int total = Integer.parseInt(request.getParameter("total"));
                 for (int i = 0; i < total; i++) {
-                    if (request.getParameter("select_"+i) != null) {
+                    if (request.getParameter("select_" + i) != null) {
                         computer = new Computer();
-                        computer.setIp(request.getParameter("ip_"+i));
-                        computer.setName(request.getParameter("name_"+i));
+                        computer.setIp(request.getParameter("ip_" + i));
+                        computer.setName(request.getParameter("name_" + i));
                         dao.addComputer(computer);
                     }
                 }
@@ -196,7 +207,8 @@ public class Controller extends HttpServlet {
                         try {
                             applicationSearcher.initSession(userName, password, idComputer);
                         } catch (JSchException ex) {
-                            //ignore
+                            request.setAttribute("errorMessage", "Ошибка при подключении...");
+                            request.getRequestDispatcher("/jsp/error_page.jsp");
                         }
                         ArrayList<Application> searchedApplications = applicationSearcher.searchApplications();
                         ArrayList<Application> currentApplications = dao.getApplicationsByServerID(serv.getId());
@@ -242,10 +254,14 @@ public class Controller extends HttpServlet {
                 dao.removeApplication(id);
                 request.getRequestDispatcher("/jsp/comp/applications.jsp").forward(request, response);
                 break;
-                
+
             default:
                 request.getRequestDispatcher("/jsp/comp/computers.jsp").forward(request, response);
                 break;
         }
+    }
+
+    private boolean userIsAuthorized(HttpServletRequest request) {
+        return request.getSession().getAttribute("user") != null;
     }
 }

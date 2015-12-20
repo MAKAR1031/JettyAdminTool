@@ -19,13 +19,15 @@
                     <input type="text" name="host_name" id="host_name" required="true"/><br/>
 
                     <input type="hidden" name="action" value="add_comp_post"/>
-                    <input type="submit" value="Добавить"/>
+                    <div class="button_block">
+                        <input class="button" type="submit" value="Добавить"/>
+                    </div>
                 </div>
             </form>
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="to_comp"/>
-                    <input type="submit" value="К списку компьютеров"/>
+                    <input class="button" type="submit" value="К списку компьютеров"/>
                 </form>
             </div>
         </div>

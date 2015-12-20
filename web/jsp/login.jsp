@@ -9,8 +9,21 @@
     <body>
         <jsp:include page="/jsp/header.jsp"/>
         <div class="content">
-            <h1 class="title">Авторизация</h1>
-            <h1>Вы сможете авторизоваться, но позже...</h1>
+            <h2 class="title">Авторизация</h2>
+            <form method="POST" action="<c:url value="/LoginController"/>">
+                <div class="fields">
+                    <label for="username">Имя пользователя</label>
+                    <input id="username" type="text" name="username" required="true"/><br/>
+
+                    <label for="password">Пароль</label>
+                    <input id="password" type="password" name="password" required="true"/><br/>
+
+                    <input type="hidden" name="action" value="login_post"/>
+                    <div class="button_block">
+                        <input class="button" type="submit" value="Вход"/>
+                    </div>
+                </div>
+            </form>
         </div>
     </body>
 </html>

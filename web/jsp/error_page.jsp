@@ -20,9 +20,17 @@
                     </p>
                 </c:when>
                 <c:otherwise>
-                    <c:out value="${requestScope.errorMessage}"/>
+                    <p>
+                        <c:out value="${requestScope.errorMessage}"/>
+                    </p>
                 </c:otherwise>
             </c:choose>
+            <div class="button_block">
+                <form method="GET" action="<c:url value="/Controller"/>">
+                    <input type="hidden" name="action" value="to_comp"/>
+                    <input class="button" type="submit" value="К списку компьютеров"/>
+                </form>
+            </div>
         </div>
     </body>
 </html>

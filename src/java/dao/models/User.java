@@ -1,5 +1,7 @@
 package dao.models;
 
+import util.Roles;
+
 public class User implements Validatable{
 
     private int id;
@@ -39,7 +41,10 @@ public class User implements Validatable{
         this.role = role;
     }
     
-        
+    public  boolean isInRole(Roles role) {
+        return this.role.equalsIgnoreCase(role.getName());
+    }
+    
     @Override
     public boolean isValid() {
         return isValidString(userName) && isValidString(email) && isValidString(role);

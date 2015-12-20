@@ -42,7 +42,7 @@
                             <form method="GET" action="<c:url value="/Controller"/>">
                                 <input type="hidden" name="id_app" value="${row.id}"/>
                                 <input type="hidden" name="action" value="rem_app"/>
-                                <input type="submit" value="Удалить"/>
+                                <input class="button" type="submit" value="Удалить"/>
                             </form>
                         </td>
                     </tr>
@@ -51,15 +51,15 @@
             <div class="button_block">
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="add_app"/>
-                    <input type="submit" value="Добавить приложение"/>
+                    <input class="button" type="submit" value="Добавить приложение"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="to_serv"/>
-                    <input type="submit" value="К списку серверов"/>
+                    <input class="button" type="submit" value="К списку серверов"/>
                 </form>
                 <form method="GET" action="<c:url value="/Controller"/>">
                     <input type="hidden" name="action" value="to_comp"/>
-                    <input type="submit" value="К списку компьютеров"/>
+                    <input class="button" type="submit" value="К списку компьютеров"/>
                 </form>
             </div>
         </div>
